@@ -1,29 +1,20 @@
 ﻿using Sample3_LinqWindowsForm.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Sample3_LinqWindowsForm
 {
     public partial class FormAdd : Form
     {
-        public Form_LinqSqlConnectionDataContext DataContext { get; }
-
         public InsertProductModel InsertProduct { get; set; } = new InsertProductModel();
 
+        public IDataContext dataContext {  get; set; }
 
-        public FormAdd(Form_LinqSqlConnectionDataContext dataContext)
+        public FormAdd(IDataContext dataContext)
         {
             InitializeComponent();
-            DataContext = dataContext;
+            this.dataContext = dataContext;
         }
 
         private void buttonAdd1_Click(object sender, EventArgs e)
@@ -45,22 +36,11 @@ namespace Sample3_LinqWindowsForm
             InsertProduct.Color = textBoxColor3.Text;
             InsertProduct.Size = textBoxSize7.Text;
 
-            ValidationContext validationContext = new ValidationContext(InsertProduct, null, null);
-
-            IList<ValidationResult> validationErrors = new List<ValidationResult>();
-
-            if (!Validator.TryValidateObject(InsertProduct, validationContext, validationErrors, true))
-            {
-                foreach (ValidationResult error in validationErrors)
-                {
-                    MessageBox.Show(error.MemberNames.First() + " - " + error.ErrorMessage);
-                }
-            }
-            else
+            if (SqlDataValidator.ValidateProduct(InsertProduct))
             {
                 try
                 {
-                    DataContext.SAMPLE1_INSERT_PRODUCT_DATA(
+                    dataContext.linqDataContext.SAMPLE1_INSERT_PRODUCT_DATA(
                             InsertProduct.Name,
                             InsertProduct.ProductNumber,
                             InsertProduct.Color,
@@ -73,29 +53,13 @@ namespace Sample3_LinqWindowsForm
 
                     MessageBox.Show("Added");
 
-                    ClearTextBoxes();
+                    TextBoxExtension.ClearTextBoxes(this);
                 }
                 catch(SqlException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
-        }
-
-        private void ClearTextBoxes()
-        {
-            Action<Control.ControlCollection> func = null;
-
-            func = (controls) =>
-            {
-                foreach (Control control in controls)
-                    if (control is TextBox)
-                        (control as TextBox).Clear();
-                    else
-                        func(control.Controls);
-            };
-
-            func(Controls);
         }
     }
 }

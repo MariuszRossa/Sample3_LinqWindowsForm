@@ -16,7 +16,10 @@ namespace Sample3_LinqWindowsForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            IDataContext dataContext = new CreateConnection();
+
+            Application.Run(new Form1(dataContext));
         }
     }
 }

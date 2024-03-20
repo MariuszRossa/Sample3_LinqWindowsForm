@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AdventureWorks2017" Class="Form_LinqSqlConnectionDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-96BM1E8;Initial Catalog=AdventureWorks2017;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="Sample3_LinqWindowsForm.Properties.Settings" SettingsPropertyName="AdventureWorks2017ConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=AdventureWorks2017;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="Sample3_LinqWindowsForm.Properties.Settings" SettingsPropertyName="AdventureWorks2017ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="Production.Product" Member="Product">
     <Type Name="Product">
       <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -59,6 +59,10 @@
   <Function Name="dbo.SAMPLE1_UPDATE_PRODUCT_PRICE" Method="SAMPLE1_UPDATE_PRODUCT_PRICE">
     <Parameter Name="ProductiD" Parameter="productiD" Type="System.Int32" DbType="Int" />
     <Parameter Name="ListPrice" Parameter="listPrice" Type="System.Decimal" DbType="Money" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SAMPLE1_DELETE_PRODUCT_SELLS" Method="SAMPLE1_DELETE_PRODUCT_SELLS">
+    <Parameter Name="ProductiD" Parameter="productiD" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

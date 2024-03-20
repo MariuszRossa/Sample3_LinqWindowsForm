@@ -30,7 +30,8 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonAdd1 = new System.Windows.Forms.Button();
-            this.buttonDelete1 = new System.Windows.Forms.Button();
+            this.buttonDisableSells2 = new System.Windows.Forms.Button();
+            this.buttonDelete3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,22 +53,33 @@
             this.buttonAdd1.UseVisualStyleBackColor = true;
             this.buttonAdd1.Click += new System.EventHandler(this.buttonAdd1_Click);
             // 
-            // buttonDelete1
+            // buttonDisableSells2
             // 
-            this.buttonDelete1.Location = new System.Drawing.Point(713, 403);
-            this.buttonDelete1.Name = "buttonDelete1";
-            this.buttonDelete1.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelete1.TabIndex = 2;
-            this.buttonDelete1.Text = "Delete";
-            this.buttonDelete1.UseVisualStyleBackColor = true;
-            this.buttonDelete1.Click += new System.EventHandler(this.buttonDelete1_Click);
+            this.buttonDisableSells2.Location = new System.Drawing.Point(626, 403);
+            this.buttonDisableSells2.Name = "buttonDisableSells2";
+            this.buttonDisableSells2.Size = new System.Drawing.Size(75, 23);
+            this.buttonDisableSells2.TabIndex = 2;
+            this.buttonDisableSells2.Text = "Disable sells";
+            this.buttonDisableSells2.UseVisualStyleBackColor = true;
+            this.buttonDisableSells2.Click += new System.EventHandler(this.buttonDisableSells2_Click);
+            // 
+            // buttonDelete3
+            // 
+            this.buttonDelete3.Location = new System.Drawing.Point(713, 403);
+            this.buttonDelete3.Name = "buttonDelete3";
+            this.buttonDelete3.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete3.TabIndex = 3;
+            this.buttonDelete3.Text = "Delete";
+            this.buttonDelete3.UseVisualStyleBackColor = true;
+            this.buttonDelete3.Click += new System.EventHandler(this.buttonDelete3_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.buttonDelete1);
+            this.Controls.Add(this.buttonDelete3);
+            this.Controls.Add(this.buttonDisableSells2);
             this.Controls.Add(this.buttonAdd1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
@@ -81,7 +93,8 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button buttonAdd1;
-        private System.Windows.Forms.Button buttonDelete1;
+        private System.Windows.Forms.Button buttonDisableSells2;
+        private System.Windows.Forms.Button buttonDelete3;
     }
 }
 

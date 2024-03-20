@@ -100,6 +100,13 @@ namespace Sample3_LinqWindowsForm
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), productiD, listPrice);
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SAMPLE1_DELETE_PRODUCT_SELLS")]
+		public int SAMPLE1_DELETE_PRODUCT_SELLS([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductiD", DbType="Int")] System.Nullable<int> productiD)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), productiD);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="Production.Product")]

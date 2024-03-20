@@ -1,30 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Linq;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace Sample3_LinqWindowsForm
 {
     public partial class Form1 : Form
     {
-        private Form_LinqSqlConnectionDataContext dataContext = new Form_LinqSqlConnectionDataContext();
-        public Form1()
+        private IDataContext dataContext {  get; set; }
+
+
+        public Form1(IDataContext dataContext)
         {
             InitializeComponent();
 
-            dataGridView1.DataSource = dataContext.SAMPLE1_GET_PRODUCT_DATA();
+            this.dataContext = dataContext;
+
+            dataGridView1.DataSource = dataContext.linqDataContext.SAMPLE1_GET_PRODUCT_DATA();
         }
 
         public void RefreshForm()
         {
-            dataGridView1.DataSource = dataContext.SAMPLE1_GET_PRODUCT_DATA();
+            dataGridView1.DataSource = dataContext.linqDataContext.SAMPLE1_GET_PRODUCT_DATA();
         }
 
         private void buttonAdd1_Click(object sender, EventArgs e)
@@ -35,41 +32,35 @@ namespace Sample3_LinqWindowsForm
             RefreshForm();
         }
 
-        private void buttonDelete1_Click(object sender, EventArgs e)
+        private void buttonDisableSells2_Click(object sender, EventArgs e)
         {
-            List<int> selected = new List<int>();
+            List<int> selected = GetRowId.ForProductID(dataGridView1);
 
-            if (dataGridView1.SelectedRows.Count > 0)
+            try
             {
-                for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
+                foreach (int id in selected)
                 {
-                    selected.Add((int)dataGridView1.SelectedRows[i].Cells["ProductID"].Value);
+                    int result = dataContext.linqDataContext.SAMPLE1_UPDATE_DISABLE_PRODUCT_SELLS(id);
                 }
             }
-            else
+            catch (SqlException ex) { MessageBox.Show(ex.Message); }
+
+            RefreshForm();
+        }
+
+        private void buttonDelete3_Click(object sender, EventArgs e)
+        {
+            List<int> selected = GetRowId.ForProductID(dataGridView1);
+
+            try
             {
-                List<int> rowIndex = new List<int>();
-
-                for (int i = 0; i < dataGridView1.SelectedCells.Count; i++)
+                foreach (int id in selected)
                 {
-                    int value = dataGridView1.SelectedCells[i].RowIndex;
-
-                    if (!rowIndex.Contains(value))
-                    {
-                        rowIndex.Add(value);
-                    }
-                }
-
-                foreach (int value in rowIndex)
-                {
-                    selected.Add((int)dataGridView1.Rows[value].Cells["ProductID"].Value);
+                    int result = dataContext.linqDataContext.SAMPLE1_DELETE_PRODUCT_SELLS(id);
                 }
             }
+            catch (SqlException ex) { MessageBox.Show(ex.Message); }
 
-            foreach(int id in selected)
-            {
-                dataContext.SAMPLE1_UPDATE_DISABLE_PRODUCT_SELLS(id);
-            }
             RefreshForm();
         }
     }
